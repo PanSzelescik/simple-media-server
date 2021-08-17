@@ -3,7 +3,7 @@ import express from 'express';
 import compression from 'compression';
 import minifyHTML from 'express-minify-html-2';
 import ffmpeg from 'ffmpeg-static';
-import {debug, filesDir, port, thumbnailsDir} from './config.js';
+import {debug, port} from './config.js';
 import api from './routes/api/api.js';
 import file from './routes/file/file.js';
 import thumbnail from './routes/thumbnail/thumbnail.js';

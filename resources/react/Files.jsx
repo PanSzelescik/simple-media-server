@@ -1,4 +1,4 @@
-import {Col, Container, Row} from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 import useFetch from 'react-fetch-hook';
 import {useRouteMatch} from 'react-router-dom';
 import AppBreadcrumb from './AppBreadcrumb.jsx';
@@ -25,9 +25,11 @@ export default function Files() {
             return <Loader/>;
         }
         return <Row xs={2} md={4} lg={6} xl={8} className="gx-0">
-            {Object.entries(data.directories).map(([dir, stats]) => <Directory key={dir} path={path} dir={dir} stats={stats}/>)}
-            {Object.entries(data.files).map(([file, stats]) => <File key={file} path={path} file={file} stats={stats}/>)}
-        </Row>
+            {Object.entries(data.directories).map(([dir, stats]) => <Directory key={dir} path={path} dir={dir}
+                                                                               stats={stats}/>)}
+            {Object.entries(data.files).map(([file, stats]) => <File key={file} path={path} file={file}
+                                                                     stats={stats}/>)}
+        </Row>;
     }
 
     return <>
@@ -37,5 +39,5 @@ export default function Files() {
                 {render()}
             </Col>
         </Row>
-    </>
+    </>;
 }

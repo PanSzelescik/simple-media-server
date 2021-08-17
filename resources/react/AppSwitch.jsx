@@ -9,7 +9,7 @@ export default function AppSwitch() {
         <Route path="/files" component={Files}/>
         <Route path="/view/*" component={View}/>
         <Route path="/" component={Home}/>
-    </Switch>
+    </Switch>;
 }
 
 const Home = memo(() => (

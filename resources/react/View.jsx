@@ -35,17 +35,17 @@ export default function View() {
         if (isLoading || error) {
             return <Loader/>;
         }
-        const [fileName, stats] = Object.entries(data.files).find(([fileName]) => fileName === dirs[dirs.length - 1]);
+        const [, stats] = Object.entries(data.files).find(([fileName]) => fileName === dirs[dirs.length - 1]);
         const index = Object.entries(data.files).findIndex(([fileName]) => fileName === dirs[dirs.length - 1]);
         const type = types[stats.type] || Unknown;
 
         function prev() {
-            const dir = data.path ? `${data.path}/` : ''
+            const dir = data.path ? `${data.path}/` : '';
             history.push(`/view/${dir}${Object.keys(data.files)[index - 1]}`);
         }
 
         function next() {
-            const dir = data.path ? `${data.path}/` : ''
+            const dir = data.path ? `${data.path}/` : '';
             history.push(`/view/${dir}${Object.keys(data.files)[index + 1]}`);
         }
 
@@ -53,13 +53,14 @@ export default function View() {
             <div className="view">
                 <LeftNav onClick={prev} disabled={index === 0}/>
                 <RightNav onClick={next} disabled={index === Object.entries(data.files).length - 1}/>
-                <Swipeable onSwipedLeft={index === Object.entries(data.files).length - 1 ? null : next} onSwipedRight={index === 0 ? null : prev} children={createElement(type, {
+                <Swipeable onSwipedLeft={index === Object.entries(data.files).length - 1 ? null : next}
+                           onSwipedRight={index === 0 ? null : prev} children={createElement(type, {
                     key: path,
                     path: path,
                     stats
                 })}/>
             </div>
-        </Row>
+        </Row>;
         /*return <Row>
             {createElement(type, {
                 key: path,
@@ -76,5 +77,5 @@ export default function View() {
                 {render()}
             </Col>
         </Row>
-    </>
+    </>;
 }

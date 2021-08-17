@@ -24,5 +24,6 @@ export default function Image({path = '', stats = {}}) {
         return <ImageGallery items={items} lazyLoad startIndex={items.findIndex(({original}) => original === `/file/${path}`)} onSlide={(index) => history.push(items[index].original.replace('/file', '/view'))}/>;
     }
     return render();*/
-    return <img className="view-item" src={`/file/${path}?m=${modifiedTimestamp(stats.modified)}`} alt={path.split('/').pop()}/>
+    return <img className="view-item" src={`/file/${path}?m=${modifiedTimestamp(stats.modified)}`}
+                alt={path.split('/').pop()}/>;
 }
