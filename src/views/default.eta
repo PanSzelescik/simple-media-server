@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="PanSzelescik">
+    <link rel="icon" href="/resources/favicon.svg" type=”image/svg+xml”>
+    <link rel="icon" href="/resources/favicon.png" type=”image/png”>
+    <link rel="shortcut icon" href="/resources/favicon.ico">
+    <link rel="mask-icon" href="/resources/mask-icon.svg" color="#000000">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/resources/manifest.json">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="black">
+    <title>Simple Media Server</title>
+    <meta name="apple-mobile-web-app-title" content="Simple Media Server">
+    <meta name="application-name" content="Simple Media Server">
+    <meta name="title" content="Simple Media Server">
+    <meta name="description" content="Prosty serwer multimediów">
+
+    <meta property="og:title" content="Simple Media Server">
+    <meta property="og:site_name" content="Simple Media Server">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="/resources/google-touch-icon.png">
+    <meta property="og:image:alt" content="Logo Bota">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:description" content="Prosty serwer multimediów">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pl_PL">
+
+    <link rel="stylesheet" href="/resources/app.css">
+</head>
+<body>
+<%~ it.body %>
+</body>
+</html>

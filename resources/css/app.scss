@@ -1,0 +1,67 @@
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+@import '~bootstrap/scss/bootstrap.scss';
+
+a {
+    text-decoration: none !important;
+}
+
+.card {
+    margin: auto;
+}
+
+.card-title {
+    /*text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;*/
+    font-size: 0.95rem;
+}
+
+.view-icon {
+    padding: 50px 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    background-color: transparent;
+    border: 0;
+    color: #ffffff;
+    transition: all 0.3s ease-out;
+
+    img {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.view-icon-left {
+    left: 0;
+}
+
+.view-icon-right {
+    right: 0;
+}
+
+.view-item {
+    max-height: calc(100vh - 96px);
+    width: 100%;
+    object-fit: contain;
+}
+
+@media only screen and (max-width: 576px) {
+    .view-icon {
+        visibility: hidden;
+    }
+
+    /*.card {
+        //width: 11rem;
+    }
+
+    video {
+        height: 80vh;
+        min-height: 100%;
+    }*/
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}

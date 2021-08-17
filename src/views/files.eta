@@ -1,0 +1,4 @@
+<% layout('./default') %>
+
+<div id="app"></div>
+<script async src="/resources/app.js" type="text/javascript"></script>
