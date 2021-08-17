@@ -1,5 +1,5 @@
 const CACHE_NAME = 'sms-offline';
-const OFFLINE_URL = 'resources/offline.html';
+const OFFLINE_URL = '/resources/offline.html';
 
 self.addEventListener('install', (event) => {
     event.waitUntil(

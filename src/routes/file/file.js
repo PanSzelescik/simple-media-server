@@ -8,7 +8,6 @@ const options = {
 
 router.get('/*', (req, res, next) => {
     const path = decodeURIComponent(req._parsedUrl.pathname);
-    console.log(path);
     const {m} = req.query;
     const cb = (err) => {
         if (err) {
