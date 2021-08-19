@@ -3,20 +3,11 @@ import useFetch from 'react-fetch-hook';
 import {useHistory, useRouteMatch} from 'react-router-dom';
 import AppBreadcrumb from './AppBreadcrumb.jsx';
 import Loader from './base/Loader.jsx';
-import Image from './type/Image.jsx';
-import Text from './type/Text.jsx';
-import Unknown from './type/Unknown.jsx';
 import {createElement} from 'react';
-import Video from './type/Video.jsx';
+import {getType} from './utils/getType.js';
 import LeftNav from './view/LeftNav.jsx';
 import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
-
-const types = {
-    image: Image,
-    video: Video,
-    text: Text
-};
 
 export default function View() {
     const history = useHistory();
@@ -27,47 +18,44 @@ export default function View() {
     const dirs = path.split('/').filter(Boolean);
     dirs.forEach((name) => array.push([`${array[array.length - 1][0]}/${name}`, name]));
 
-    const {isLoading, data, error} = useFetch(`/api${array[array.length - 2][0]}`, {
+    const {isLoading, data, error} = useFetch(array[array.length - 2][0].replace('/files', '/file'), {
         depends: [!!params]
+    });
+    const {isLoading: isLoading2, data: headers, error: error2} = useFetch(array[array.length - 1][0].replace('/files', '/file'), {
+        method: 'HEAD',
+        formatter: (response) => response.headers
     });
 
     function render() {
-        if (isLoading || error) {
+        if (isLoading || isLoading2 || error | error2) {
             return <Loader/>;
         }
-        const [, stats] = Object.entries(data.files).find(([fileName]) => fileName === dirs[dirs.length - 1]);
-        const index = Object.entries(data.files).findIndex(([fileName]) => fileName === dirs[dirs.length - 1]);
-        const type = types[stats.type] || Unknown;
+        const files = data.filter(({type}) => type === 'file');
+        const index = files.findIndex(({name}) => name === dirs[dirs.length - 1]);
+        const type = getType(headers);
 
         function prev() {
             const dir = data.path ? `${data.path}/` : '';
-            history.push(`/view/${dir}${Object.keys(data.files)[index - 1]}`);
+            history.push(`/view/${dir}${files[index - 1].name}`);
         }
 
         function next() {
             const dir = data.path ? `${data.path}/` : '';
-            history.push(`/view/${dir}${Object.keys(data.files)[index + 1]}`);
+            history.push(`/view/${dir}${files[index + 1].name}`);
         }
 
         return <Row>
             <div className="view">
                 <LeftNav onClick={prev} disabled={index === 0}/>
-                <RightNav onClick={next} disabled={index === Object.entries(data.files).length - 1}/>
-                <Swipeable onSwipedLeft={index === Object.entries(data.files).length - 1 ? null : next}
+                <RightNav onClick={next} disabled={index === files.length - 1}/>
+                <Swipeable onSwipedLeft={index === files.length - 1 ? null : next}
                            onSwipedRight={index === 0 ? null : prev} children={createElement(type, {
                     key: path,
                     path: path,
-                    stats
+                    headers
                 })}/>
             </div>
         </Row>;
-        /*return <Row>
-            {createElement(type, {
-                key: path,
-                path: path,
-                stats: data
-            })}
-        </Row>*/
     }
 
     return <>

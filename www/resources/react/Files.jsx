@@ -16,19 +16,17 @@ export default function Files() {
     const array = [['/files', 'Pliki']];
     path.split('/').filter(Boolean).forEach((name) => array.push([`${array[array.length - 1][0]}/${name}`, name]));
 
-    const {isLoading, data, error} = useFetch(`/api/files/${path}`, {
+    const {isLoading, data, error} = useFetch(`/file/${path}`, {
         depends: [!!params]
     });
 
     function render() {
-        if (data?.path !== path || isLoading || error) {
+        if (isLoading || error) {
             return <Loader/>;
         }
         return <Row xs={2} md={4} lg={6} xl={8} className="gx-0">
-            {Object.entries(data.directories).map(([dir, stats]) => <Directory key={dir} path={path} dir={dir}
-                                                                               stats={stats}/>)}
-            {Object.entries(data.files).map(([file, stats]) => <File key={file} path={path} file={file}
-                                                                     stats={stats}/>)}
+            {data.filter((file) => file.type === 'directory').map(({name}) => <Directory key={name} path={path} dir={name}/>)}
+            {data.filter((file) => file.type === 'file').map(({name}) => <File key={name} path={path} file={name}/>)}
         </Row>;
     }
 

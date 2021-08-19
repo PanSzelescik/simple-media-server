@@ -1,0 +1,20 @@
+{
+    "name": "simple-media-server-thumbnails",
+    "version": "1.0.0",
+    "description": "Aplikacja tworząca miniatury filmów",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "keywords": [],
+    "author": "PanSzelescik",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "date-fns": "^2.23.0",
+        "express": "^4.17.1",
+        "ffmpeg-static": "^4.4.0",
+        "morgan": "^1.10.0"
+    }
+}

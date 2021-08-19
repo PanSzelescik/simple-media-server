@@ -1,0 +1,39 @@
+version: '3'
+services:
+  www:
+    build:
+      context: ./www
+      dockerfile: Dockerfile
+      args:
+        ENABLED_MODULES: brotli
+    image: simple-media-server/www
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: "/mnt/e/Z telefonu"
+        target: /www/file
+        read_only: true
+      - ./www/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - simple-media-server-network
+  thumbnails:
+    build:
+      context: ./thumbnails
+      dockerfile: Dockerfile
+    image: simple-media-server/thumbnails
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/szymon/cache:/app/cache
+      - type: bind
+        source: "/mnt/e/Z telefonu"
+        target: /app/files
+        read_only: true
+    networks:
+      - simple-media-server-network
+networks:
+  simple-media-server-network:
+    driver: bridge
