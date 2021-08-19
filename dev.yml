@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   www:
     image: nginx:mainline
@@ -18,10 +18,7 @@ services:
     networks:
       - simple-media-server-network
   thumbnails:
-    build:
-      context: ./thumbnails
-      dockerfile: Dockerfile
-    image: simple-media-server/thumbnails
+    image: node:16-buster-slim
     container_name: thumbnails
     restart: unless-stopped
     working_dir: /app
