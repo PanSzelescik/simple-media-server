@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 export default function Directory({path = '', dir = '', stats = {}}) {
     return <Col>
-        <Link to={`/files/${path}${dir}`}>
+        <Link to={`/files/${path}/${dir}`}>
             <DirectoryCard dir={dir}/>
         </Link>
     </Col>;
