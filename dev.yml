@@ -1,12 +1,10 @@
 version: '3'
 services:
   www:
-    build:
-      context: ./www
-      dockerfile: Dockerfile
-    image: simple-media-server/www
+    image: nginx:mainline
     container_name: www
     restart: unless-stopped
+    working_dir: /www
     ports:
       - "80:80"
     volumes:
@@ -14,6 +12,9 @@ services:
         source: "/mnt/e/Z telefonu"
         target: /www/file
         read_only: true
+      - ./www/nginx.conf:/etc/nginx/nginx.conf
+      - ./www/index.html:/www/index.html
+      - ./www/build/:/www/resources/
     networks:
       - simple-media-server-network
   thumbnails:
@@ -23,6 +24,10 @@ services:
     image: simple-media-server/thumbnails
     container_name: thumbnails
     restart: unless-stopped
+    working_dir: /app
+    entrypoint: node src/index.js
+    ports:
+      - "3000:3000"
     volumes:
       - type: bind
         source: "/home/szymon/cache"
@@ -31,6 +36,7 @@ services:
         source: "/mnt/e/Z telefonu"
         target: /app/files
         read_only: true
+      - ./thumbnails/:/app/
     networks:
       - simple-media-server-network
 networks:
