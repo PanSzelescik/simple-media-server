@@ -2,16 +2,18 @@ import Image from '../type/Image.jsx';
 import Unknown from '../type/Unknown.jsx';
 import Video from '../type/Video.jsx';
 
-export function getType(headers) {
-    const type = headers.get('content-type');
+export function getTypeFromHeaders(headers, string) {
+    return getType(headers.get('content-type'), string);
+}
 
+export function getType(type, string) {
     if (type) {
         if (type.startsWith('image')) {
-            return Image;
+            return string ? 'image' : Image;
         }
         if (type.startsWith('video')) {
-            return Video;
+            return string ? 'video' : Video;
         }
     }
-    return Unknown;
+    return string ? 'unknown' : Unknown;
 }

@@ -3,7 +3,7 @@ import useFetch from 'react-fetch-hook';
 import {useHistory} from 'react-router-dom';
 import Loader from './base/Loader.jsx';
 import {createElement} from 'react';
-import {getType} from './utils/getType.js';
+import {getTypeFromHeaders} from './utils/getType.js';
 import LeftNav from './view/LeftNav.jsx';
 import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
@@ -37,7 +37,7 @@ export default function View({path, pathArray, files}) {
 
     const prevDisabled = index === 0;
     const nextDisabled = index === files.length - 1;
-    const type = getType(headers);
+    const type = getTypeFromHeaders(headers);
 
     return <Row>
         <div className="view">

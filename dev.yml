@@ -25,6 +25,8 @@ services:
     restart: unless-stopped
     working_dir: /app
     entrypoint: node src/index.js
+    environment:
+      - TZ:Europe/Warsaw
     ports:
       - "3000:3000"
     volumes:
