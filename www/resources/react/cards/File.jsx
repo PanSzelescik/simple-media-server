@@ -1,15 +1,11 @@
 import {Card, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import modifiedTimestamp from '../utils/modifiedTimestamp.js';
+import {getFilePath, getPath} from '../utils/getFilePath.js';
 
 export default function File({path = '', file = '', stats}) {
-    let src = null;
-    if (stats) {
-        const {type, modified} = stats;
-        src = type === 'image' ? `/file/${path}/${encodeURIComponent(file)}?m=${modifiedTimestamp(modified)}` : type === 'video' ? `/thumbnail/${path}/${encodeURIComponent(file)}?m=${modifiedTimestamp(modified)}` : '/resources/icons/directory.svg';
-    }
+    const src = stats ? getFilePath(path, file, stats) : null;
     return <Col>
-        <Link to={`/view/${path}/${encodeURIComponent(file)}`}>
+        <Link to={`${getPath(`/view/${path}`)}${encodeURIComponent(file)}`}>
             <Card>
                 <Card.Img variant="top" loading="lazy" src={src} alt={file}/>
                 <Card.Body>
