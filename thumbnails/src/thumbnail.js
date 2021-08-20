@@ -8,7 +8,7 @@ import {EOL} from 'os';
 
 const router = express.Router({mergeParams: true});
 const filesDir = resolve('./files');
-const thumbnailsDir = resolve('./cache/thumbnails');
+export const thumbnailsDir = resolve('./cache/thumbnails');
 const options = {
     root: thumbnailsDir
 };

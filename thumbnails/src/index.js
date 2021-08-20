@@ -3,6 +3,7 @@ import express from 'express';
 import {format} from 'date-fns';
 import locale from 'date-fns/locale/pl/index.js';
 import logger from 'morgan';
+import cleanup from './cleanup.js';
 import thumbnails from './thumbnail.js';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(logger((tokens, req, res) => [
 ].join(' ')));
 
 app.use('/thumbnail', thumbnails);
+app.use('/cleanup', cleanup);
 
 app.listen(3000, () => {
     console.log('simple-media-server-thumbnails listening at http://localhost:3000');
