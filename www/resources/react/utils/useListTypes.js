@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {getTypeFromHeaders} from './getType.js';
 
 export default function useListTypes(path, files) {
-    const [responses, setResponses] = useState(files.map(({name}) => fetch(`/file/${path}/${name}`, {method: 'HEAD'})));
+    const [responses, setResponses] = useState(files.map(({name}) => fetch(`/file/${path}/${encodeURIComponent(name)}`, {method: 'HEAD'})));
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {

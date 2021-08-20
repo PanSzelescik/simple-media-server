@@ -1,5 +1,5 @@
 import express from 'express';
-import {access, mkdir} from 'fs/promises';
+import {access, mkdir, unlink} from 'fs/promises';
 import {resolve} from 'path';
 import {spawn} from 'child_process';
 import ffmpegStatic from 'ffmpeg-static';
@@ -29,6 +29,20 @@ router.get('/*', async (req, res, next) => {
         });
     }
 });
+router.delete('/*', async (req, res) => {
+    const path = decodeURIComponent(req._parsedUrl.pathname);
+    try {
+        await unlink(`${thumbnailsDir}${path}.webp`);
+        res.json({
+            message: `Deleted ${path}`
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(404).json({
+            message: `Thumbnail delete for ${path} errored`
+        });
+    }
+});
 
 async function check(path = '') {
     try {
@@ -44,24 +58,6 @@ async function check(path = '') {
 
         await generateThumbnail(path, duration);
     }
-}
-
-async function generateThumbnail(path = '', duration = 0) {
-    console.log(`Generating thumbnail for: ${path}, duration: ${duration}`);
-    return new Promise(((resolve, reject) => {
-        const args = [
-            '-ss', `${Math.floor(duration / 2)}`,
-            '-i', `${filesDir}/${path}`,
-            '-vframes', '1',
-            `${thumbnailsDir}${path}.webp`
-        ];
-        const process = spawn(ffmpegStatic, args, {
-            windowsHide: true,
-            shell: false
-        });
-        process.once('error', reject);
-        process.once('exit', (code, signal) => resolve({code, signal}));
-    }));
 }
 
 async function getDuration(path = '') {
@@ -91,6 +87,26 @@ async function getDuration(path = '') {
             }
             resolve(0);
         });
+    }));
+}
+
+async function generateThumbnail(path = '', duration = 0) {
+    console.log(`Generating thumbnail for: ${path}, duration: ${duration}`);
+    return new Promise(((resolve, reject) => {
+        const args = [
+            '-ss', `${Math.floor(duration / 2)}`,
+            '-i', `${filesDir}/${path}`,
+            '-vframes', '1',
+            `${thumbnailsDir}${path}.webp`
+        ];
+        const process = spawn(ffmpegStatic, args, {
+            windowsHide: true,
+            shell: false
+        });
+        process.stdout.on('data', b => console.log(b.toString()));
+        process.stderr.on('data', b => console.log(b.toString()));
+        process.once('error', reject);
+        process.once('exit', (code, signal) => resolve({code, signal}));
     }));
 }
 

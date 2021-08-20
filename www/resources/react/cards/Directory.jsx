@@ -2,9 +2,9 @@ import {memo} from 'react';
 import {Card, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
-export default function Directory({path = '', dir = '', stats = {}}) {
+export default function Directory({path = '', dir = ''}) {
     return <Col>
-        <Link to={`/files/${path}/${dir}`}>
+        <Link to={`/files/${path}${dir}`}>
             <DirectoryCard dir={dir}/>
         </Link>
     </Col>;
