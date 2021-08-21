@@ -26,8 +26,7 @@ if (!file_exists($dir)) {
                         array_push($files, array(
                             'name' => $name,
                             'mime' => @mime_content_type($path),
-                            'modified' => @filemtime($path),
-                            'size' => @filesize($path)
+                            'modified' => @filemtime($path)
                         ));
                     };
                 }
