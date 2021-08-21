@@ -36,6 +36,15 @@ services:
         read_only: true
     networks:
       - simple-media-server-network
+  mariadb:
+    build:
+      context: ./mariadb
+      dockerfile: Dockerfile
+    image: simple-media-server/mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      - simple-media-server-network
 networks:
   simple-media-server-network:
     driver: bridge

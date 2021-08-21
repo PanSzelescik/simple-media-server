@@ -27,8 +27,6 @@ services:
     container_name: php
     restart: unless-stopped
     working_dir: /www
-    environment:
-      TZ: Europe/Warsaw
     volumes:
       - type: bind
         source: "/mnt"
@@ -38,15 +36,12 @@ services:
     networks:
       - simple-media-server-network
   mariadb:
-    image: mariadb:latest
+    build:
+      context: ./mariadb
+      dockerfile: Dockerfile
+    image: simple-media-server/mariadb
     container_name: mariadb
     restart: unless-stopped
-    environment:
-      TZ: Europe/Warsaw
-      MYSQL_ROOT_PASSWORD: zaq1@WSX
-      MYSQL_DATABASE: simple-media-server
-      MYSQL_USER: simple-media-server
-      MYSQL_PASSWORD: zaq1@WSX
     ports:
      - "3306:3306"
     networks:
