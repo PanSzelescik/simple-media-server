@@ -1,8 +1,8 @@
 # simple-media-server
 Prosty serwer multimediów
 
-Budowanie (produckcja):
+Budowanie (produkcja):
 docker-compose up -d --build
 
 Budowanie (dev):
-docker-compose -f development.yml up -d --build
+docker-compose -f dev.yml up -d --build

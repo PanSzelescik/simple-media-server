@@ -1,4 +1,5 @@
 import useFetch from 'react-fetch-hook';
+import {sorter} from './sorter.js';
 
 export default function useListFiles(path, isView) {
     if (isView) {
@@ -7,7 +8,7 @@ export default function useListFiles(path, isView) {
         path = array.join('/');
     }
 
-    const {isLoading, data, error} = useFetch(`/file/${path}`);
+    const {isLoading, data, error} = useFetch(`/api/files.php/${path}`);
     if (isLoading || error) {
         return {
             isLoading,
@@ -19,7 +20,7 @@ export default function useListFiles(path, isView) {
     return {
         isLoading,
         error,
-        files: data.filter((file) => file.type === 'file'),
-        dirs: data.filter((file) => file.type === 'directory')
+        files: data.files.sort(sorter.name),
+        dirs: data.dirs.sort(sorter.name)
     }
 }

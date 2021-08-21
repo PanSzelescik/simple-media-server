@@ -11,7 +11,7 @@ services:
       - "80:80"
     volumes:
       - type: bind
-        source: "/mnt/e/Z telefonu"
+        source: "/mnt"
         target: /www/file
         read_only: true
       - ./www/nginx.conf:/etc/nginx/nginx.conf
@@ -19,25 +19,22 @@ services:
       - ./www/build/:/www/resources/
     networks:
       - simple-media-server-network
-  thumbnails:
-    image: node:16-buster-slim
-    container_name: thumbnails
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile.dev
+    image: simple-media-server/php-ffmpeg:dev
+    container_name: php
     restart: unless-stopped
-    working_dir: /app
-    entrypoint: node src/index.js
+    working_dir: /www
     environment:
       - TZ:Europe/Warsaw
-    ports:
-      - "3000:3000"
     volumes:
       - type: bind
-        source: "/home/szymon/cache"
-        target: /app/cache
-      - type: bind
-        source: "/mnt/e/Z telefonu"
-        target: /app/files
+        source: "/mnt"
+        target: /www/file
         read_only: true
-      - ./thumbnails/:/app/
+      - ./php/api/:/www/api/
     networks:
       - simple-media-server-network
 networks:

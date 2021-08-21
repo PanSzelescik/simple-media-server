@@ -4,32 +4,32 @@ services:
     build:
       context: ./www
       dockerfile: Dockerfile
-    image: simple-media-server/www
+    image: simple-media-server/www:prod
     container_name: www
     restart: unless-stopped
     ports:
       - "80:80"
     volumes:
       - type: bind
-        source: "/mnt/e/Z telefonu"
+        source: "/mnt"
         target: /www/file
         read_only: true
     networks:
       - simple-media-server-network
-  thumbnails:
+  php:
     build:
-      context: ./thumbnails
+      context: ./php
       dockerfile: Dockerfile
-    image: simple-media-server/thumbnails
-    container_name: thumbnails
+    image: simple-media-server/php-ffmpeg:prod
+    container_name: php
     restart: unless-stopped
+    working_dir: /www
+    environment:
+      - TZ:Europe/Warsaw
     volumes:
       - type: bind
-        source: "/home/szymon/cache"
-        target: /app/cache
-      - type: bind
-        source: "/mnt/e/Z telefonu"
-        target: /app/files
+        source: "/mnt"
+        target: /www/file
         read_only: true
     networks:
       - simple-media-server-network

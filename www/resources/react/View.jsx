@@ -3,7 +3,7 @@ import useFetch from 'react-fetch-hook';
 import {useHistory} from 'react-router-dom';
 import Loader from './base/Loader.jsx';
 import {createElement} from 'react';
-import {getTypeFromHeaders} from './utils/getType.js';
+import {getType} from './utils/getType.js';
 import LeftNav from './view/LeftNav.jsx';
 import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
@@ -14,10 +14,7 @@ export default function View({path, pathArray, files}) {
     const element = pathArray[pathArray.length - 1];
     const index = files.findIndex(({name}) => name === element[1]);
 
-    const {isLoading, data: headers, error} = useFetch(element[0].replace('/view', '/file'), {
-        method: 'HEAD',
-        formatter: (response) => response.headers
-    });
+    const {isLoading, data, error} = useFetch(element[0].replace('/view', '/api/file.php'));
 
     if (isLoading) {
         return <Loader/>;
@@ -37,7 +34,7 @@ export default function View({path, pathArray, files}) {
 
     const prevDisabled = index === 0;
     const nextDisabled = index === files.length - 1;
-    const type = getTypeFromHeaders(headers);
+    const type = getType(data?.mime);
 
     return <Row>
         <div className="view">
@@ -47,7 +44,7 @@ export default function View({path, pathArray, files}) {
                        onSwipedRight={prevDisabled ? null : prev} children={createElement(type, {
                 key: path,
                 path: path,
-                headers
+                data
             })}/>
         </div>
     </Row>;

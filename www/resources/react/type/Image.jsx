@@ -1,6 +1,5 @@
-import modifiedTimestamp from '../utils/modifiedTimestamp.js';
-
-export default function Image({path = '', headers}) {
-    return <img className="view-item" src={`/file/${path}?m=${modifiedTimestamp(headers.get('last-modified'))}`}
+export default function Image({path = '', data}) {
+    const {modified} = data;
+    return <img className="view-item" src={`/file/${path}?m=${modified}`}
                 alt={path.split('/').pop()}/>;
 }

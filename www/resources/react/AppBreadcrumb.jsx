@@ -14,6 +14,6 @@ export default function AppBreadcrumb({position}) {
 
 function Item({href, name, bold}) {
     return <li className="breadcrumb-item">
-        <Link className={bold ? 'fw-bold' : null} to={href}>{name}</Link>
+        <Link className={bold ? 'fw-bold' : null} to={href}>{decodeURIComponent(name)}</Link>
     </li>;
 }

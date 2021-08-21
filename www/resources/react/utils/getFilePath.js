@@ -1,4 +1,4 @@
-import modifiedTimestamp from './modifiedTimestamp.js';
+import {getType} from './getType.js';
 
 export function getPath(path) {
     if (!path.endsWith('/')) {
@@ -7,17 +7,20 @@ export function getPath(path) {
     return path;
 }
 
-export function getFilePath(path, file, stats = {}) {
-    if (stats) {
-        const type = types[stats.type];
+export function getFilePath(path, file, mime, modified) {
+    if (mime) {
+        const type = getType(mime, true);
         if (type) {
-            return type(path, file, stats);
+            const func = types[type];
+            if (func) {
+                return func(path, file, modified);
+            }
         }
     }
     return '/resources/icons/directory.svg';
 }
 
 const types = {
-    image: (path, file, {modified}) => `${getPath(`/file/${path}`)}${encodeURIComponent(file)}?m=${modifiedTimestamp(modified)}`,
-    video: (path, file, {modified}) => `${getPath(`/thumbnail/${path}`)}${encodeURIComponent(file)}?m=${modifiedTimestamp(modified)}`
+    image: (path, file, modified) => `${getPath(`/file/${path}`)}${encodeURIComponent(file)}?m=${modified}`,
+    video: (path, file, modified) => `${getPath(`/api/thumbnail.php/${path}`)}${encodeURIComponent(file)}?m=${modified}`
 }
