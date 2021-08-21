@@ -7,6 +7,9 @@ services:
     image: simple-media-server/www:prod
     container_name: www
     restart: unless-stopped
+    working_dir: /www
+    environment:
+      TZ: Europe/Warsaw
     ports:
       - "80:80"
     volumes:
@@ -25,7 +28,7 @@ services:
     restart: unless-stopped
     working_dir: /www
     environment:
-      - TZ:Europe/Warsaw
+      TZ: Europe/Warsaw
     volumes:
       - type: bind
         source: "/mnt"

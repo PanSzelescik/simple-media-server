@@ -1,12 +1,12 @@
 version: '3.9'
 services:
   www:
-    image: nginx:mainline
+    image: nginx:latest
     container_name: www
     restart: unless-stopped
     working_dir: /www
     environment:
-      - TZ:Europe/Warsaw
+      TZ: Europe/Warsaw
     ports:
       - "80:80"
     volumes:
@@ -28,13 +28,40 @@ services:
     restart: unless-stopped
     working_dir: /www
     environment:
-      - TZ:Europe/Warsaw
+      TZ: Europe/Warsaw
     volumes:
       - type: bind
         source: "/mnt"
         target: /www/file
         read_only: true
       - ./php/api/:/www/api/
+    networks:
+      - simple-media-server-network
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
+      MYSQL_ROOT_PASSWORD: zaq1@WSX
+      MYSQL_DATABASE: simple-media-server
+      MYSQL_USER: simple-media-server
+      MYSQL_PASSWORD: zaq1@WSX
+    ports:
+     - "3306:3306"
+    networks:
+      - simple-media-server-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
+      PMA_HOST: mariadb
+      PMA_USER: simple-media-server
+      PMA_PASSWORD: zaq1@WSX
+    ports:
+      - "8080:80"
     networks:
       - simple-media-server-network
 networks:

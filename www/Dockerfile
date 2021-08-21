@@ -14,7 +14,7 @@ COPY webpack.mix.cjs ./webpack.mix.cjs
 RUN npm run production
 
 
-FROM nginx:mainline
+FROM nginx:latest
 
 ENV TZ=Europe/Warsaw
 
