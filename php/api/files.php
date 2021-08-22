@@ -42,7 +42,7 @@ if (!file_exists($dir)) {
                         }
                         if ($cached_row != false) {
                             array_push($files, [
-                                'name' => $db_name,
+                                'name' => $name,
                                 'modified' => $modified,
                                 'mime' => $cached_row['mime']
                             ]);
