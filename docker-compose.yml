@@ -28,7 +28,10 @@ services:
     restart: unless-stopped
     working_dir: /www
     environment:
-      TZ: Europe/Warsaw
+      DB_HOST: mariadb
+      DB_NAME: simple-media-server
+      DB_USER: simple-media-server
+      DB_PASSWORD: zaq1@WSX
     volumes:
       - type: bind
         source: "/mnt"

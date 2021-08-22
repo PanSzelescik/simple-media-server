@@ -27,6 +27,11 @@ services:
     container_name: php
     restart: unless-stopped
     working_dir: /www
+    environment:
+      DB_HOST: mariadb
+      DB_NAME: simple-media-server
+      DB_USER: simple-media-server
+      DB_PASSWORD: zaq1@WSX
     volumes:
       - type: bind
         source: "/mnt"
