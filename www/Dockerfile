@@ -23,5 +23,7 @@ WORKDIR /www
 COPY --from=webpack /webpack/build /www/resources
 COPY index.html .
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY cert.crt /etc/ssl/certs/nginx-selfsigned.crt
+COPY private.key /etc/ssl/private/nginx-selfsigned.key
 
-EXPOSE 80
+EXPOSE 80 443

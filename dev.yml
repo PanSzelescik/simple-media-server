@@ -9,6 +9,7 @@ services:
       TZ: Europe/Warsaw
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - type: bind
         source: "/mnt"
@@ -17,6 +18,8 @@ services:
       - ./www/nginx.conf:/etc/nginx/nginx.conf
       - ./www/index.html:/www/index.html
       - ./www/build/:/www/resources/
+      - ./www/cert.crt:/etc/ssl/certs/nginx-selfsigned.crt
+      - ./www/private.key:/etc/ssl/private/nginx-selfsigned.key
     networks:
       - simple-media-server-network
   php:
