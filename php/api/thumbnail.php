@@ -1,10 +1,10 @@
 <?php
 
 $path = str_ends_with($_SERVER['PATH_INFO'], "/") ? substr($_SERVER['PATH_INFO'], 0, -1) : $_SERVER['PATH_INFO'];
-$dir = "/www/file/$path";
+$dir = "/www/file$path";
 $array = explode("/", $path);
 $name = $array[count($array) - 1];
-$thumbnails_dir = "/www/cache/thumbnails/$path";
+$thumbnails_dir = "/www/cache/thumbnails$path";
 $file = "$thumbnails_dir.webp";
 
 if (!file_exists($file)) {
