@@ -40,7 +40,7 @@ if (!file_exists($dir)) {
                                 break;
                             }
                         }
-                        if ($cached_row != false) {
+                        if ($cached_row) {
                             array_push($files, [
                                 'name' => $name,
                                 'modified' => $modified,
