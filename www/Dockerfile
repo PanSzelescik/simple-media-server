@@ -1,4 +1,4 @@
-FROM node:16-buster-slim as webpack
+FROM node:16-bullseye-slim as webpack
 
 ENV NODE_ENV=production
 WORKDIR /webpack
