@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   www:
-    image: nginx:latest
+    image: ymuski/nginx-quic
     container_name: www
     restart: unless-stopped
     working_dir: /www
