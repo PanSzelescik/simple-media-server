@@ -2,7 +2,7 @@
 Prosty serwer multimediów
 
 Budowanie (produkcja):
-docker-compose up -d --build
+docker-compose up -d --build --remove-orphans
 
 Budowanie (dev):
-docker-compose -f dev.yml up -d --build
+docker-compose -f dev.yml up -d --build --remove-orphans

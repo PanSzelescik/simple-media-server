@@ -8,9 +8,7 @@ export default function useListFiles(path, isView) {
         path = array.join('/');
     }
 
-    const {isLoading, data = {}, error} = useFetch(`/api/files.php/${path}`, {
-        depends: [path]
-    });
+    const {isLoading, data = {}, error} = useFetch(`/api/files.php/${path}`);
     if (isLoading || error || path !== data?.path) {
         return {
             isLoading,
