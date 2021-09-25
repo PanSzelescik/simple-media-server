@@ -65,7 +65,8 @@ if (!file_exists($dir)) {
             $db->commit();
             echo json_encode([
                 'files' => $files,
-                'dirs' => $dirs
+                'dirs' => $dirs,
+                'path' => substr($_SERVER['PATH_INFO'], 1)
             ]);
         } else {
             http_response_code(500);

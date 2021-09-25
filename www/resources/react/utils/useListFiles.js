@@ -8,8 +8,10 @@ export default function useListFiles(path, isView) {
         path = array.join('/');
     }
 
-    const {isLoading, data, error} = useFetch(`/api/files.php/${path}`);
-    if (isLoading || error) {
+    const {isLoading, data = {}, error} = useFetch(`/api/files.php/${path}`, {
+        depends: [path]
+    });
+    if (isLoading || error || path !== data?.path) {
         return {
             isLoading,
             error,
@@ -20,7 +22,7 @@ export default function useListFiles(path, isView) {
     return {
         isLoading,
         error,
-        files: data.files.sort(sorter.name),
-        dirs: data.dirs.sort(sorter.name)
+        files: data?.files?.sort?.(sorter.name) ?? [],
+        dirs: data?.dirs?.sort?.(sorter.name) ?? []
     }
 }

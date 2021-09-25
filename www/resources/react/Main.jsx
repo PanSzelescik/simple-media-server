@@ -8,7 +8,6 @@ import usePath from './utils/usePath.js';
 export default function Main({children}) {
     const {path, pathArray, isView} = usePath();
     const {isLoading, error, files, dirs} = useListFiles(path, isView);
-    console.log(files);
 
     function render() {
         if (isLoading) {
