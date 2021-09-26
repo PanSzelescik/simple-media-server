@@ -24,12 +24,16 @@ export default function View({path, pathArray, files}) {
         return <h1>Nie znaleziono strony bądź pliku</h1>
     }
 
-    function prev() {
-        history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index - 1].name}`);
+    function prev({event}) {
+        if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
+            history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index - 1].name}`);
+        }
     }
 
-    function next() {
-        history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index + 1].name}`);
+    function next({event}) {
+        if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
+            history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index + 1].name}`);
+        }
     }
 
     const prevDisabled = index === 0;
