@@ -13,7 +13,7 @@ COPY resources ./resources
 COPY webpack.mix.cjs ./webpack.mix.cjs
 RUN npm run production
 
-FROM ymuski/nginx-quic
+FROM ranadeeppolavarapu/nginx-http3
 
 ENV TZ=Europe/Warsaw
 

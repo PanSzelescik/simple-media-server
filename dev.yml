@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   www:
-    image: ymuski/nginx-quic
+    image: ranadeeppolavarapu/nginx-http3
     container_name: www
     restart: unless-stopped
     working_dir: /www
