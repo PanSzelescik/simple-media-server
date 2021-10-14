@@ -1,4 +1,6 @@
+import {useContext} from 'react';
 import useFetch from 'react-fetch-hook';
+import {SettingsContext} from './settings.js';
 import {sorter} from './sorter.js';
 
 export default function useListFiles(path, isView) {
@@ -8,6 +10,7 @@ export default function useListFiles(path, isView) {
         path = array.join('/');
     }
 
+    const settings = useContext(SettingsContext);
     const {isLoading, data = {}, error} = useFetch(`/api/files.php/${path}`);
     if (isLoading || error || path !== data?.path) {
         return {
@@ -17,10 +20,12 @@ export default function useListFiles(path, isView) {
             dirs: []
         }
     }
+    const files = data?.files?.sort?.(sorter[settings.sort_name]) ?? [];
+    const dirs = data?.dirs?.sort?.(sorter[settings.sort_name === 'size' ? 'name' : settings.sort_name]) ?? [];
     return {
         isLoading,
         error,
-        files: data?.files?.sort?.(sorter.name) ?? [],
-        dirs: data?.dirs?.sort?.(sorter.name) ?? []
+        files: settings.sort_reverse ? files.reverse() : files,
+        dirs: settings.sort_reverse ? dirs.reverse() : dirs
     }
 }

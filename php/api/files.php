@@ -23,7 +23,12 @@ if (!file_exists($dir)) {
             while (($name = readdir($dh)) != false) {
                 if ($name != "." and $name != "..") {
                     $path = "$dir/$name";
+
                     $modified = @filemtime($path);
+                    if ($modified === false) {
+                        $modified = -1;
+                    }
+
                     if (is_dir($path)) {
                         array_push($dirs, [
                             'name' => $name,
@@ -32,6 +37,10 @@ if (!file_exists($dir)) {
                     } else {
                         $db_name = "{$_SERVER['PATH_INFO']}/$name";
                         $cached_row = false;
+                        $size = @filesize($path);
+                        if ($size === false) {
+                            $size = 0;
+                        }
                         foreach ($rows as $row) {
                             if ($row['name'] === $db_name) {
                                 if (strtotime($row['modified']) === $modified) {
@@ -44,19 +53,26 @@ if (!file_exists($dir)) {
                             array_push($files, [
                                 'name' => $name,
                                 'modified' => $modified,
-                                'mime' => $cached_row['mime']
+                                'mime' => $cached_row['mime'],
+                                'size' => $size
                             ]);
                         } else {
                             $mime = @mime_content_type($path);
+                            if ($mime === false) {
+                                $mime = 'unknown';
+                            }
+
                             array_push($files, [
                                 'name' => $name,
                                 'modified' => $modified,
-                                'mime' => $mime
+                                'mime' => $mime,
+                                'size' => $size
                             ]);
                             $inserter->execute([
                                 'name' => $db_name,
                                 'modified' => date("Y-m-d H:i:s", $modified),
-                                'mime' => $mime
+                                'mime' => $mime,
+                                //'size' => $size
                             ]);
                         }
                     };
@@ -83,4 +99,3 @@ if (!file_exists($dir)) {
         ]);
     }
 }
-

@@ -10,6 +10,7 @@
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/card";
 @import "~bootstrap/scss/breadcrumb";
@@ -24,12 +25,23 @@ a {
     text-decoration: none !important;
 }
 
+.breadcrumb-item {
+    word-wrap: break-word;
+}
+
 .card {
-    margin: auto;
+    margin: 3px;
 }
 
 .card-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: 0.7rem;
+    color: #b4b4b4;
+    margin-top: 2px;
 }
 
 .view-icon {

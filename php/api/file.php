@@ -16,7 +16,10 @@ if (!file_exists($dir)) {
         'path' => $_SERVER['PATH_INFO']
     ]);
 } else {
-    $modified = filemtime($dir);
+    $modified = @filemtime($path);
+    if ($modified === false) {
+        $modified = -1;
+    }
     if (is_dir($dir)) {
         echo json_encode([
             'name' => $name,
