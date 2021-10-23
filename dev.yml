@@ -38,7 +38,7 @@ services:
       DB_PASSWORD: zaq1@WSX
     volumes:
       - type: bind
-        source: "/mnt"
+        source: "/"
         target: /www/file
         read_only: true
       - ./php/api/:/www/api/
