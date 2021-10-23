@@ -18,7 +18,7 @@ if (!file_exists($dir)) {
     if (is_dir($dir)) {
         $selector->execute();
         $rows = $selector->fetchAll();
-        if ($dh = @opendir($dir)) {
+        if ($dh = opendir($dir)) {
             $db->beginTransaction();
             while (($name = readdir($dh)) != false) {
                 if ($name != "." and $name != "..") {
