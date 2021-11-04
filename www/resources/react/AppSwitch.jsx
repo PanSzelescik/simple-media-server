@@ -1,24 +1,16 @@
 import {memo} from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
+import {Link, Route, Routes} from 'react-router-dom';
 import Files from './Files.jsx';
 import Main from './Main.jsx';
 import View from './View.jsx';
 
 export default function AppSwitch() {
-    return <Switch>
-        <Route path="/files/*">
-            <Main children={Files}/>
-        </Route>
-        <Route path="/files">
-            <Main children={Files}/>
-        </Route>
-        <Route path="/view/*">
-            <Main children={View}/>
-        </Route>
-        <Route path="/">
-            <Home/>
-        </Route>
-    </Switch>;
+    return <Routes>
+        <Route path="/files/*" element={<Main children={Files}/>}/>
+        <Route path="/files" element={<Main children={Files}/>}/>
+        <Route path="/view/*" element={<Main children={View}/>}/>
+        <Route path="/" element={<Home/>}/>
+    </Routes>;
 }
 
 const Home = memo(() => (
