@@ -1,6 +1,6 @@
 import {Row} from 'react-bootstrap';
 import useFetch from 'react-fetch-hook';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Loader from './base/Loader.jsx';
 import {createElement} from 'react';
 import {getType} from './utils/getType.js';
@@ -9,7 +9,7 @@ import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
 
 export default function View({path, pathArray, files}) {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const element = pathArray[pathArray.length - 1];
     const index = files.findIndex(({name}) => name === element[1]);
@@ -26,13 +26,13 @@ export default function View({path, pathArray, files}) {
 
     function prev({event}) {
         if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
-            history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index - 1].name}`);
+            navigate(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index - 1].name}`);
         }
     }
 
     function next({event}) {
         if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
-            history.push(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index + 1].name}`);
+            navigate(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index + 1].name}`);
         }
     }
 
