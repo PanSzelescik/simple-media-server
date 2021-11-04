@@ -78,6 +78,7 @@ if (!file_exists($dir)) {
                     };
                 }
             }
+            closedir($dh);
             $db->commit();
             echo json_encode([
                 'files' => $files,
