@@ -1,22 +1,19 @@
-import {useParams, useResolvedPath} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 
 export default function usePath() {
-    console.log('Chuj 1');
+    const {pathname} = useLocation();
     const params = useParams();
-    console.log(params);
-    const path = params['*'];
-    console.log(path);
 
-    /*const {params, url, path: routerPath} = useRouteMatch();
-    let path = params[0] || '';
+    let path = params['*'] || '';
     if (path.endsWith('/')) {
         path = path.substring(0, path.length - 1);
-    }*/
+    }
 
     const pathArray = [['/files', 'Pliki']];
-    /*path.split('/')
+    path.split('/')
         .filter(Boolean)
-        .forEach((name, index, array) => pathArray.push([array.length - 1 === index ? url : `${pathArray[pathArray.length - 1][0]}/${name}`, name]));*/
+        .map((name, index, array) => [array.length - 1 === index ? pathname : `${pathArray[pathArray.length - 1][0]}/${name}`, name])
+        .forEach((x) => pathArray.push(x));
 
-    return {path, pathArray, isView: path === '/view/*'};
+    return {path, pathArray, isView: pathname.startsWith('/view/')};
 }
