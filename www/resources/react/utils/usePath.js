@@ -12,8 +12,7 @@ export default function usePath() {
     const pathArray = [['/files', 'Pliki']];
     path.split('/')
         .filter(Boolean)
-        .map((name, index, array) => [array.length - 1 === index ? pathname : `${pathArray[pathArray.length - 1][0]}/${name}`, name])
-        .forEach((x) => pathArray.push(x));
+        .forEach((name, index, array) => pathArray.push([array.length - 1 === index ? pathname : `${pathArray[pathArray.length - 1][0]}/${name}`, name]));
 
     return {path, pathArray, isView: pathname.startsWith('/view/')};
 }

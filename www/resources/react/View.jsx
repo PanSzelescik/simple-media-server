@@ -24,13 +24,15 @@ export default function View({path, pathArray, files}) {
         return <h1>Nie znaleziono strony bądź pliku</h1>
     }
 
-    function prev({event}) {
+    function prev(e) {
+        const event = e.event || e.nativeEvent;
         if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
             navigate(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index - 1].name}`);
         }
     }
 
-    function next({event}) {
+    function next(e) {
+        const event = e.event || e.nativeEvent;
         if (!(event.target?.nodeName === 'VIDEO' && event.target === document.fullscreenElement)) {
             navigate(`${pathArray[pathArray.length - 2][0].replace('/files', '/view')}/${files[index + 1].name}`);
         }
