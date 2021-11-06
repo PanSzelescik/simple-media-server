@@ -13,7 +13,7 @@ services:
       - "443:443/udp"
     volumes:
       - type: bind
-        source: "/"
+        source: "/mnt"
         target: /www/file
         read_only: true
       - ./www/nginx.conf:/etc/nginx/nginx.conf
@@ -38,7 +38,7 @@ services:
       DB_PASSWORD: zaq1@WSX
     volumes:
       - type: bind
-        source: "/"
+        source: "/mnt"
         target: /www/file
         read_only: true
       - ./php/api/:/www/api/
