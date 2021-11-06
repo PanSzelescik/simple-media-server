@@ -10,7 +10,7 @@ export default function Directory({path = '', dir = '', modified = -1}) {
 
     return <Col>
         <Link to={`${getPath(`/files/${path}`)}${encodeURIComponent(dir)}`}>
-            <Card title={dir}>
+            <Card title={dir} bg={settings.getDarkMode()}>
                 <Card.Body>
                     <Card.Title className="text-center text-truncate">{dir}</Card.Title>
                     {settings.show_modified && dateSubtitle(modified)}

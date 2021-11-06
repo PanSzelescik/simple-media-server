@@ -21,6 +21,16 @@
 
 @import "~bootstrap/scss/utilities/api";
 
+* {
+    -webkit-transition: background-color 250ms linear, color 250ms linear;
+    -ms-transition: background-color 250ms linear, color 250ms linear;
+    transition: background-color 250ms linear, color 250ms linear;
+}
+
+.dark-mode {
+    background-color: #121212;
+}
+
 a {
     text-decoration: none !important;
 }

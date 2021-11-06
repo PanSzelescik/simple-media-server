@@ -2,13 +2,15 @@ import {Row} from 'react-bootstrap';
 import useFetch from 'react-fetch-hook';
 import {useNavigate} from 'react-router-dom';
 import Loader from './base/Loader.jsx';
-import {createElement} from 'react';
+import {createElement, useContext} from 'react';
 import {getType} from './utils/getType.js';
+import {SettingsContext} from './utils/settings.js';
 import LeftNav from './view/LeftNav.jsx';
 import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
 
 export default function View({path, pathArray, files}) {
+    const settings = useContext(SettingsContext);
     const navigate = useNavigate();
 
     const element = pathArray[pathArray.length - 1];
@@ -21,7 +23,7 @@ export default function View({path, pathArray, files}) {
     }
 
     if (error) {
-        return <h1>Nie znaleziono strony bądź pliku</h1>
+        return <h1 className={settings.getDarkModeText()}>Nie znaleziono strony bądź pliku</h1>
     }
 
     function prev(e) {

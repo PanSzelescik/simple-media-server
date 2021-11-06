@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {Nav, NavDropdown} from 'react-bootstrap';
-import {SettingsContext} from './utils/settings.js';
+import {blacklisted_settings, SettingsContext} from './utils/settings.js';
 import Cookies from 'universal-cookie';
 
 export default function DropdownSettings() {
@@ -15,13 +15,13 @@ export default function DropdownSettings() {
         settings.setSettings((oldSettings) => {
             oldSettings[prop] = typeof value === 'undefined' ? !oldSettings[prop] : value;
             const newSettings = {...oldSettings};
-            cookies.set('settings', Object.fromEntries(Object.entries(newSettings).filter(([key]) => key !== 'setSettings')));
+            cookies.set('settings', Object.fromEntries(Object.entries(newSettings).filter(([key]) => !blacklisted_settings.includes(key))), {path: '/'});
             return newSettings;
         });
     }
 
     return <Nav>
-        <NavDropdown title="Ustawienia" onSelect={onSortChange}>
+        <NavDropdown title="Ustawienia" onSelect={onSortChange} menuVariant={settings.getDarkMode()}>
             <NavDropdown.Header>Sortowanie</NavDropdown.Header>
             <NavDropdown.Item eventKey="sort_name-name" active={settings.sort_name === 'name'}>Nazwa</NavDropdown.Item>
             <NavDropdown.Item eventKey="sort_name-modified" active={settings.sort_name === 'modified'}>Czas modyfikacji</NavDropdown.Item>
@@ -32,6 +32,7 @@ export default function DropdownSettings() {
             <NavDropdown.Header>Widok</NavDropdown.Header>
             <NavDropdown.Item eventKey="show_modified" active={settings.show_modified}>Czas modyfikacji</NavDropdown.Item>
             <NavDropdown.Item eventKey="show_size" active={settings.show_size}>Rozmiar</NavDropdown.Item>
+            <NavDropdown.Item eventKey="dark_mode" active={settings.dark_mode}>Tryb ciemny</NavDropdown.Item>
         </NavDropdown>
     </Nav>;
 }

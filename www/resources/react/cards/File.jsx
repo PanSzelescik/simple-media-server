@@ -11,7 +11,7 @@ export default function File({path = '', file = '', mime, modified = -1, size = 
 
     return <Col>
         <Link to={`${getPath(`/view/${path}`)}${encodeURIComponent(file)}`}>
-            <Card title={file}>
+            <Card title={file} bg={settings.getDarkMode()}>
                 <Card.Img variant="top" loading="lazy" src={getFilePath(path, file, mime, modified)} alt={file}/>
                 <Card.Body>
                     <Card.Title className="text-center text-truncate">{file}</Card.Title>
