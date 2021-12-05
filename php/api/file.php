@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 require_once 'redis.php';
+require_once 'file_utils.php';
 
 $local_path = str_ends_with($_SERVER['PATH_INFO'], "/") ? substr($_SERVER['PATH_INFO'], 0, -1) : $_SERVER['PATH_INFO'];
 $dir = "/www/file$local_path";
@@ -16,12 +17,10 @@ if (!file_exists($dir)) {
     die();
 }
 
-$modified = @filemtime($dir);
-if ($modified === false) {
-    $modified = -1;
-}
+$info = new SplFileInfo($dir);
+$modified = getMTime($info);
 
-if (is_dir($dir)) {
+if ($info->isDir()) {
     echo json_encode([
         'name' => $name,
         'modified' => $modified
@@ -29,16 +28,23 @@ if (is_dir($dir)) {
     die();
 }
 
-$info = getFileInfo($_SERVER['PATH_INFO']);
-$mime = $info && $info['modified'] === $modified ? $info['mime'] : @mime_content_type($dir);
+$row = getFileInfo($_SERVER['PATH_INFO']);
+if (!$row or $row['modified'] !== $modified) {
+    $row = false;
+}
+
+$mime = $row ? $row['mime'] : getMime($dir);
+$size = $row ? $row['size'] : getSize($info);
 
 echo json_encode([
     'name' => $name,
     'modified' => $modified,
-    'mime' => $mime
+    'mime' => $mime,
+    'size' => $size
 ]);
 
 insertFileInfo($_SERVER['PATH_INFO'], [
     'modified' => $modified,
-    'mime' => $mime
+    'mime' => $mime,
+    'size' => $size
 ]);

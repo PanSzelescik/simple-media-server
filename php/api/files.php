@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 require_once 'redis.php';
+require_once 'file_utils.php';
 
 $path = str_ends_with($_SERVER['PATH_INFO'], "/") ? substr($_SERVER['PATH_INFO'], 0, -1) : $_SERVER['PATH_INFO'];
 $dir = "/www/file$path";
@@ -95,31 +96,4 @@ try {
         'message' => "Directory can't be opened",
         'path' => $_SERVER['PATH_INFO']
     ]);
-}
-
-function getMTime($info) {
-    try {
-        return $info->getMTime();
-    } catch (Exception) {
-    }
-    return -1;
-}
-
-function getSize($info) {
-    try {
-        return $info->getSize();
-    } catch (Exception) {
-    }
-    return -1;
-}
-
-function getMime($path) {
-    try {
-        $mime = @mime_content_type($path);
-        if ($mime) {
-            return $mime;
-        }
-    } catch (Exception) {
-    }
-    return 'unknown';
 }
