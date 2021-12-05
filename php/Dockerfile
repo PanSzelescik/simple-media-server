@@ -5,7 +5,9 @@ WORKDIR /www
 
 RUN apt update
 RUN apt install -y ffmpeg --no-install-recommends
-RUN docker-php-ext-install pdo_mysql
+RUN pecl install -o -f redis
+RUN rm -rf /tmp/pear
+RUN docker-php-ext-enable redis
 
 RUN mkdir -p -m 777 /www/cache/thumbnails
 

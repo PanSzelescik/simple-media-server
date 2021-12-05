@@ -30,10 +30,8 @@ services:
     restart: unless-stopped
     working_dir: /www
     environment:
-      DB_HOST: mariadb
-      DB_NAME: simple-media-server
-      DB_USER: simple-media-server
-      DB_PASSWORD: zaq1@WSX
+      TZ: Europe/Warsaw
+      REDIS_HOST: redis
     volumes:
       - type: bind
         source: "/mnt"
@@ -41,13 +39,12 @@ services:
         read_only: true
     networks:
       - simple-media-server-network
-  mariadb:
-    build:
-      context: ./mariadb
-      dockerfile: Dockerfile
-    image: simple-media-server/mariadb
-    container_name: mariadb
+  redis:
+    image: redis
+    container_name: redis
     restart: unless-stopped
+    environment:
+      TZ: Europe/Warsaw
     networks:
       - simple-media-server-network
 networks:

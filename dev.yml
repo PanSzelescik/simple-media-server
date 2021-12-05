@@ -32,10 +32,8 @@ services:
     restart: unless-stopped
     working_dir: /www
     environment:
-      DB_HOST: mariadb
-      DB_NAME: simple-media-server
-      DB_USER: simple-media-server
-      DB_PASSWORD: zaq1@WSX
+      TZ: Europe/Warsaw
+      REDIS_HOST: redis
     volumes:
       - type: bind
         source: "/mnt"
@@ -44,28 +42,12 @@ services:
       - ./php/api/:/www/api/
     networks:
       - simple-media-server-network
-  mariadb:
-    build:
-      context: ./mariadb
-      dockerfile: Dockerfile
-    image: simple-media-server/mariadb
-    container_name: mariadb
-    restart: unless-stopped
-    ports:
-     - "3306:3306"
-    networks:
-      - simple-media-server-network
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
+  redis:
+    image: redis
+    container_name: redis
     restart: unless-stopped
     environment:
       TZ: Europe/Warsaw
-      PMA_HOST: mariadb
-      PMA_USER: simple-media-server
-      PMA_PASSWORD: zaq1@WSX
-    ports:
-      - "8080:80"
     networks:
       - simple-media-server-network
 networks:
