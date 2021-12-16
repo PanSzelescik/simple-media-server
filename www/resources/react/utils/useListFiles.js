@@ -1,7 +1,7 @@
 import {useContext} from 'react';
-import useFetch from 'react-fetch-hook';
 import {SettingsContext} from './settings.js';
 import {sorter} from './sorter.js';
+import useFetch from './useFetch.js';
 
 export default function useListFiles(path, isView) {
     if (isView) {

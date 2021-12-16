@@ -1,10 +1,10 @@
 import {Row} from 'react-bootstrap';
-import useFetch from 'react-fetch-hook';
 import {useNavigate} from 'react-router-dom';
 import Loader from './base/Loader.jsx';
 import {createElement, useContext} from 'react';
 import {getType} from './utils/getType.js';
 import {SettingsContext} from './utils/settings.js';
+import useFetch from './utils/useFetch.js';
 import LeftNav from './view/LeftNav.jsx';
 import RightNav from './view/RightNav.jsx';
 import Swipeable from './view/Swipeable.jsx';
