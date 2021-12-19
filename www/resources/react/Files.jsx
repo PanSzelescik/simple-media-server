@@ -16,7 +16,7 @@ export default function Files({path, files, dirs}) {
 function DirsList(path, dirs, settings) {
     return <>
         <h5 className={settings.getDarkModeText()}>Foldery</h5>
-        <Row xs={2} md={4} lg={6} xl={8} className="gx-0">
+        <Row xs={2} md={4} lg={6} xl={8} className="gx-0 dirs">
             {dirs.map(({name, modified, size}) => <Directory key={name} path={path} dir={name} modified={modified} size={size}/>)}
         </Row>
     </>;
@@ -25,7 +25,7 @@ function DirsList(path, dirs, settings) {
 function FilesList(path, files, settings) {
     return <>
         <h5 className={settings.getDarkModeText()}>Pliki</h5>
-        <Row xs={2} md={4} lg={6} xl={8} className="gx-0">
+        <Row xs={2} md={4} lg={6} xl={8} className="gx-0 files">
             {files.map(({name, mime, modified}) => <File key={name} path={path} file={name} mime={mime} modified={modified}/>)}
         </Row>
     </>;

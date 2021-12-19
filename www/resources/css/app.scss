@@ -39,6 +39,10 @@ a {
     overflow-wrap: anywhere;
 }
 
+.card:hover {
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+}
+
 .card {
     margin: 3px;
 }
@@ -52,6 +56,38 @@ a {
     font-size: 0.7rem;
     color: #b4b4b4;
     margin-top: 2px;
+}
+
+:is(.dirs, .files) {
+    content-visibilty: auto;
+}
+
+.container {
+    &:not(.modified) .dirs .col {
+        contain-intrinsic-size: 0 57.2813px;
+    }
+
+    &.modified .dirs .col {
+        contain-intrinsic-size: 0 72.718px;
+    }
+}
+
+.container {
+    &:not(.modified):not(.size) .files .col {
+        contain-intrinsic-size: 0 207.281px;
+    }
+
+    &:not(.modified).size .files .col {
+        contain-intrinsic-size: 0 222.719px;
+    }
+
+    &:not(.size).modified .files .col {
+        contain-intrinsic-size: 0 222.719px;
+    }
+
+    &.modified.size .files .col {
+        contain-intrinsic-size: 0 238.156px;
+    }
 }
 
 .view-icon {

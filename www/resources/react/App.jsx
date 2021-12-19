@@ -31,7 +31,7 @@ export default function App() {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-                <Container as={'main'}>
+                <Container as={'main'} className={[settings.show_size && 'size', settings.show_modified && 'modified'].filter(Boolean).join(' ')}>
                     <AppSwitch/>
                 </Container>
             </BrowserRouter>
