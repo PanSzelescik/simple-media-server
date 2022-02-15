@@ -30,7 +30,7 @@
     "react-swipeable": "6.2.0",
     "resolve-url-loader": "5.0.0",
     "sass": "1.49.7",
-    "sass-loader": "12.4.0",
+    "sass-loader": "12.5.0",
     "universal-cookie": "4.0.4"
   }
 }
