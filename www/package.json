@@ -29,7 +29,7 @@
     "react-router-dom": "6.3.0",
     "react-swipeable": "6.2.1",
     "resolve-url-loader": "5.0.0",
-    "sass": "1.49.10",
+    "sass": "1.49.11",
     "sass-loader": "12.6.0",
     "universal-cookie": "4.0.4"
   }
