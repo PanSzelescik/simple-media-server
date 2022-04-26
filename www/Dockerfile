@@ -1,4 +1,4 @@
-FROM node:17-bullseye-slim as webpack
+FROM node:18-bullseye-slim as webpack
 
 ENV NODE_ENV=production
 ENV NODE_OPTIONS=--openssl-legacy-provider
