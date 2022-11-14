@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:8.1.0alpha3-fpm
 
 ENV TZ=Europe/Warsaw
 WORKDIR /www
